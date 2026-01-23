@@ -21,7 +21,7 @@ playerButton.addEventListener("click", () => {
 
     loadTemplate("player-lookup");
     searchHero();
-})
+});
 
 
 
@@ -40,9 +40,19 @@ function loadTemplate(id) {
 // function for using the searchbox on hero lookup and parsing the entered hero's data
 async function searchHero() {
     const heroInputBox = document.getElementById("hero-input");
-    const searchButton = document.getElementById("search-button");
+    const searchButton = document.getElementById("search-button");    
+
+
 
     if (heroInputBox && searchButton) {
+
+        // make enter key press the search button
+        heroInputBox.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                searchButton.click();
+            }
+        });
+        // listen to the search button click
         searchButton.addEventListener("click", async () => {
             // animation
             searchButton.classList.add("active");
