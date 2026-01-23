@@ -6,19 +6,22 @@ const playerButton = document.getElementById("player-lookup-button")
 
 // hero lookup listener
 heroButton.addEventListener("click", () => {
+    // animation
     heroButton.classList.add("active");
     playerButton.classList.remove("active");
 
     loadTemplate("hero-lookup");
-    heroSearch();
+    searchHero();
 })
 
 // player lookup listener
 playerButton.addEventListener("click", () => {
+    // animation
     heroButton.classList.remove("active");
     playerButton.classList.add("active");
 
     loadTemplate("player-lookup");
+    searchHero();
 })
 
 
@@ -36,25 +39,30 @@ function loadTemplate(id) {
 }
 
 // function for using the searchbox on hero lookup and parsing the entered hero's data
-function heroSearch() {
+async function searchHero() {
     const heroInputBox = document.getElementById("hero-input");
     const searchButton = document.getElementById("search-button");
 
     if (heroInputBox && searchButton) {
-        searchButton.addEventListener("click", () => {
+        searchButton.addEventListener("click", async () => {
+            // animation
+            searchButton.classList.add("active");
+            setTimeout(() => {
+                searchButton.classList.remove("active");
+            }, 200)
+
             const query = heroInputBox.value;
             if (query) {
-                fetchHero(query);
+                const data = await fetchHero(query);
+                if (data) {
+                    renderHero(data);
+                }
             }
             else {
                 console.error("Search is empty");
             }
         })
     }
-}
-
-function playerSearch() {
-    // add the same as herosearch ^^
 }
 
 // fetch hero from API
@@ -66,14 +74,20 @@ async function fetchHero(hero) {
             throw new Error(`Response status: ${response.status}`);
         }
         const result = await response.json();
-        console.log(result);
+        console.log(result); //debug
+        return await result;
     }
     catch (error) {
         console.error(error.message);
     }
 }
 
+// render hero card
+function renderHero(data) {
 
+}
+
+// ----TODO-----  do same as herosearch 3 functions
 
 
 

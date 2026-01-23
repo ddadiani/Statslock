@@ -1,7 +1,7 @@
 * {
     font-family: Inter;
     --global-bg-color: #1a1a1a;
-    --global-text-color: #DFDFDF;
+    --global-text-color: #dfdfdf;
     --global-accent-color: #666666;
 }
 
@@ -62,7 +62,6 @@ a {
     color: var(--global-text-color);
 }
 
-
 /* buttons */
 h2.button {
     font-size: 18px;
@@ -88,7 +87,6 @@ h2.button.active {
     border-radius: 10px;
     transition-duration: 300ms;
 }
-
 
 /* injected section */
 section {
@@ -118,10 +116,15 @@ section input {
     width: 26px;
 }
 
+#search-button.active {
+    background-color: var(--global-accent-color);
+    border-radius: 10px;
+    animation: click-animation 200ms ease;
+}
+
 #hero-input {
     padding-left: 8px;
     padding-right: 8px;
-    
 }
 
 #player-input {
@@ -129,10 +132,25 @@ section input {
     padding-right: 8px;
 }
 
+/* hero card */
 
+#card {
+}
+
+#card-left {
+}
+
+#card-right {
+}
 
 @keyframes click-animation {
-    0% {scale: auto}
-    50% {scale: 0.9}
-    100% {scale: 1}
+    0% {
+        scale: auto;
+    }
+    50% {
+        scale: 0.9;
+    }
+    100% {
+        scale: 1;
+    }
 }
