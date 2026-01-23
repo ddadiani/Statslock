@@ -89,7 +89,7 @@ async function fetchHero(hero) {
     }
     catch (error) {
         console.error(error.message);
-        alert("Hero not found");
+        alert(`${error.message}: Hero not found`);
     }
 }
 
