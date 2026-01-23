@@ -118,6 +118,16 @@ section input {
     width: 26px;
 }
 
+#hero-input {
+    padding-left: 8px;
+    padding-right: 8px;
+    
+}
+
+#player-input {
+    padding-left: 8px;
+    padding-right: 8px;
+}
 
 
 
