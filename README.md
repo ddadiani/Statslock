@@ -1,4 +1,4 @@
-# Statlock
+# Statslock
 
 Get a information on heros and players from Deadlock API and display them on a card.
 
