@@ -137,12 +137,12 @@ section input {
 #card {
     display: none;
     justify-content: center;
-    gap: 200px;
+    gap: 100px;
     background-color: #333333;
     border-radius: 10px;
-    min-width: 900px;
     max-width: 1000px;
     height: auto;
+    padding: 56px;
 }
 
 #card-left {
@@ -153,7 +153,6 @@ section input {
 #card-right {
     display: flex;
     flex-direction: column;
-    max-width: 30%;
 }
 
 #card h3 {
@@ -180,4 +179,23 @@ section input {
     position: sticky;
     top: 0;
     width: 100%;
+}
+
+
+
+
+/* mobile */
+@media (max-width: 800px) {
+    #main-nav {
+        flex-direction: column;
+    }
+
+    #card {
+        flex-direction: column;
+        gap: 0px;
+        max-width: 100%;
+    }
+    .sticky {
+        position: unset;
+    }
 }
