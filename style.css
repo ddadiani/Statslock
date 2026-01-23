@@ -1,0 +1,102 @@
+* {
+    font-family: Inter;
+    --global-bg-color: #1a1a1a;
+    --global-text-color: #DFDFDF;
+    --global-accent-color: #666666;
+}
+
+body {
+    background-color: var(--global-bg-color);
+    color: var(--global-text-color);
+}
+
+header {
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* navs */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    height: auto;
+    width: fit-content;
+    border: 2px solid var(--global-accent-color);
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+/* child items */
+nav div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+}
+
+#deadlock {
+    background-color: var(--global-accent-color);
+    border-radius: 10px;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+header img {
+    width: 50px;
+    height: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--global-text-color);
+}
+
+
+/* buttons */
+h2.button {
+    font-size: 18px;
+    padding: 20px;
+    margin: 0;
+    cursor: pointer;
+}
+
+h2.button.active {
+    background-color: var(--global-accent-color);
+    border-radius: 10px;
+    animation: click-animation 200ms ease;
+}
+
+.button {
+    transition-duration: 300ms;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: #888888;
+    scale: 1.1;
+    border-radius: 10px;
+    transition-duration: 300ms;
+}
+
+
+
+
+
+
+
+@keyframes click-animation {
+    0% {scale: auto}
+    50% {scale: 0.9}
+    100% {scale: 1}
+}
