@@ -115,8 +115,7 @@ function renderHero(data) {
         playstyleText.textContent = data.description.playstyle;
         
 
-        heroColors = data.colors.ui;
-        console.log(data.colors.ui);
+        // console.log(data.colors.ui); //debug
         for (const header of headers) {
             header.style.color = `rgb(${data.colors.ui})`;
         }
