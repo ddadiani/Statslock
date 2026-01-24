@@ -1,6 +1,6 @@
 # Statslock
 
-Get a information on heros and players from Deadlock API and display them on a card.
+Get information on heros and players from Deadlock API and display them on a card.
 
 API used: https://api.deadlock-api.com/docs
 
