@@ -101,7 +101,7 @@ function renderHero(data) {
         div.style.display = "flex";
 
         const heroImage = document.getElementById("hero-image");
-        const heroName = document.getElementById("hero-name")
+        const heroName = document.getElementById("hero-name");
         const loreText = document.getElementById("lore-text");
         const roleText = document.getElementById("role-text");
         const playstyleText = document.getElementById("playstyle-text");
