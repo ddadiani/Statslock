@@ -20,7 +20,7 @@ playerButton.addEventListener("click", () => {
     playerButton.classList.add("active");
 
     loadTemplate("player-lookup");
-    searchHero();
+    searchPlayer();
 });
 
 
@@ -93,6 +93,22 @@ async function fetchHero(hero) {
     }
 }
 
+async function fetchHeroes() {
+    const url = "https://assets.deadlock-api.com/v2/heroes";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        // console.log(result); //debug
+        return await result;
+    }
+    catch (error) {
+        console.error(error.message);
+    }
+}
+
 // render hero card
 function renderHero(data) {
     const div = document.getElementById("card");
@@ -122,10 +138,143 @@ function renderHero(data) {
     }
 }
 
-// ----TODO-----  do same as herosearch for namesearch 3 functions
+
+
+async function searchPlayer() {
+    const playerInputBox = document.getElementById("player-input");
+    const searchButton = document.getElementById("search-button");
 
 
 
-// by default, make the hero lookup pressed and show
-heroButton.click();
+    if (playerInputBox && searchButton) {
+
+        // make enter key press the search button
+        playerInputBox.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                searchButton.click();
+            }
+        });
+        // listen to the search button click
+        searchButton.addEventListener("click", async () => {
+            // animation
+            searchButton.classList.add("active");
+            setTimeout(() => {
+                searchButton.classList.remove("active");
+            }, 200)
+
+            const query = playerInputBox.value;
+            if (query) {
+                const data = await fetchHistory(query);
+                if (data) {
+                    renderHistory(data);
+                }
+            }
+            else {
+                console.error("Search is empty");
+                alert("Search can't be empty");
+            }
+        })
+    }
+}
+
+
+async function fetchHistory(account_id) {
+    const url = `https://api.deadlock-api.com/v1/players/${account_id}/match-history`
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        // console.log(result); //debug
+        return await result;
+    }
+    catch (error) {
+        console.error(error.message);
+        alert(`${error.message}: Player not found`);
+    }
+}
+
+async function renderHistory(data) {
+    const div = document.getElementById("history");
+    if (div && data) {
+        // make it display flex to make it visible because its hidden before in css
+        div.style.display = "flex";
+
+        // get all heros data to get the images and other data for each match
+        const heroData = await fetchHeroes();
+   
+        let n = 1;
+
+        // console.log(data, heroData); //debug
+
+        // for each match, copy the match template thats in html and put data in it
+        data.forEach((match) => {
+            const matchDiv = document.getElementById("match-template").cloneNode(true);
+            
+            // unique id for each match div
+            matchDiv.id = `match-${n}`;
+
+            // extract content
+            const matchDivContent = matchDiv.content;
+
+            const heroId = match.hero_id;
+            const hero = heroData.find(o => o.id === heroId);
+
+            // left side
+            const gamemode = (match.game_mode === 1) ? "Normal" : "Brawl";
+            const matchDate = new Date(match.start_time * 1000);
+            const daysSinceMatch = Math.floor((Date.now() - matchDate) / (1000 * 60 * 60 * 24));
+            const matchId = match.match_id;
+            const matchResult = match.match_result ? "Victory" : "Defeat";
+            const matchLength = `${Math.floor(match.match_duration_s / 60)}m ${match.match_duration_s % 60}s`;
+
+            // middle
+            const heroImg = hero.images.icon_image_small_webp;
+            const heroLevel = match.hero_level;
+
+            const kills = match.player_kills;
+            const deaths = match.player_deaths;
+            const assists = match.player_assists;
+
+            const kda = `${kills} / ${deaths} / ${assists}`;
+            const kdaAvg = (kills+assists) / deaths;
+
+            // right
+            const souls = `Souls: ${match.net_worth}`;
+            const farm = `Last hits: ${match.last_hits} (${(match.last_hits / (match.match_duration_s / 60)).toFixed(1)})`;
+            const denies = `Denies: ${match.denies}`;
+
+            // injecting them all
+            matchDivContent.querySelector(".match-type").textContent = gamemode;
+            matchDivContent.querySelector(".days-after-played").textContent = `${daysSinceMatch} days ago`;
+            matchDivContent.querySelector(".match-id").textContent = `Match ID: ${matchId}`;
+            matchDivContent.querySelector(".match-result").textContent = matchResult;
+            matchDivContent.querySelector(".match-length").textContent = matchLength;
+
+            matchDivContent.querySelector(".hero-image-player").src = heroImg;
+            matchDivContent.querySelector(".hero-level").textContent = `Level: ${heroLevel}`;
+            matchDivContent.querySelector(".kda").textContent = `KDA: ${kda} (${kdaAvg.toFixed(2)})`;
+            // matchDiv.querySelector(".kda-average").textContent = `(${kdaAvg.toFixed(2)})`;
+
+            matchDivContent.querySelector(".souls").textContent = souls;
+            matchDivContent.querySelector(".last-hits").textContent = farm;
+            matchDivContent.querySelector(".denies").textContent = denies;
+
+            if (matchResult === "Victory") {
+                matchDivContent.querySelector(".match-result").style.color = "rgb(140, 255, 140)";
+            }
+            else {
+                matchDivContent.querySelector(".match-result").style.color = "rgb(255, 120, 120)";
+            }
+
+            div.appendChild(matchDivContent);  
+            n += 1;
+        });
+    }
+}
+
+
+// by default, make the player lookup pressed and show
+playerButton.click();
 document.body.style.zoom = "90%";
