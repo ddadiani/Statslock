@@ -216,11 +216,11 @@ section input {
         scale: 1;
     }
 }
-.sticky {
+/* .sticky {
     position: sticky;
     top: 0;
     width: 100%;
-}
+} */
 
 
 
