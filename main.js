@@ -191,12 +191,13 @@ async function fetchHistory(account_id) {
     }
     catch (error) {
         console.error(error.message);
-        alert(`${error.message}: Player not found`);
+        alert(`${error.message}`);
     }
 }
 
 async function renderHistory(data) {
     const div = document.getElementById("history");
+    div.innerHTML = ""; // clear previous history if there is any
     if (div && data) {
         // make it display flex to make it visible because its hidden before in css
         div.style.display = "flex";
