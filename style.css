@@ -172,7 +172,7 @@ section input {
 /* match history */
 
 #history {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
@@ -181,7 +181,7 @@ section input {
 
 .match {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #333333;
     max-width: 900px;
     padding: 40px;
