@@ -191,7 +191,7 @@ async function fetchHistory(account_id) {
     }
     catch (error) {
         console.error(error.message);
-        alert(`${error.message}`);
+        alert(error.message);
     }
 }
 
@@ -227,7 +227,11 @@ async function renderHistory(data) {
             const matchDate = new Date(match.start_time * 1000);
             const daysSinceMatch = Math.floor((Date.now() - matchDate) / (1000 * 60 * 60 * 24));
             const matchId = match.match_id;
-            const matchResult = match.match_result ? "Victory" : "Defeat";
+            if (match.match_result === match.player_team) {
+                var matchResult = "Victory";
+            } else {
+                var matchResult = "Defeat";
+            }
             const matchLength = `${Math.floor(match.match_duration_s / 60)}m ${match.match_duration_s % 60}s`;
 
             // middle
