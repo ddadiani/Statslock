@@ -252,7 +252,17 @@ async function renderHistory(data) {
 
             // injecting them all
             matchDivContent.querySelector(".match-type").textContent = gamemode;
-            matchDivContent.querySelector(".days-after-played").textContent = `${daysSinceMatch} days ago`;
+            switch (daysSinceMatch) {
+                case 0:
+                    matchDivContent.querySelector(".days-after-played").textContent = `Today`;
+                    break;
+                case 1:
+                    matchDivContent.querySelector(".days-after-played").textContent = `Yesterday`;
+                    break;
+                default:
+                    matchDivContent.querySelector(".days-after-played").textContent = `${daysSinceMatch} days ago`;
+
+            }
             matchDivContent.querySelector(".match-id").textContent = `Match ID: ${matchId}`;
             matchDivContent.querySelector(".match-result").textContent = matchResult;
             matchDivContent.querySelector(".match-length").textContent = matchLength;
