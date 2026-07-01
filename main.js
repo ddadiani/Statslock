@@ -77,7 +77,7 @@ async function searchHero() {
 
 // fetch hero from API
 async function fetchHero(hero) {
-    const url = `https://assets.deadlock-api.com/v2/heroes/by-name/${hero}`;
+    const url = `https://api.deadlock-api.com/v1/assets/heroes/by-name/${hero}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -94,7 +94,7 @@ async function fetchHero(hero) {
 }
 
 async function fetchHeroes() {
-    const url = "https://assets.deadlock-api.com/v2/heroes";
+    const url = "https://api.deadlock-api.com/v1/assets/heroes";
     try {
         const response = await fetch(url);
         if (!response.ok) {
